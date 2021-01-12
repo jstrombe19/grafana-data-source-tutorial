@@ -23,9 +23,15 @@ export class QueryEditor extends PureComponent<Props> {
     onRunQuery();
   };
 
+  onFrequencyChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { onChange, query, onRunQuery } = this.props;
+    onChange({ ...query, frequency: parseFloat(event.target.value) });
+    onRunQuery();
+  };
+
   render() {
     const query = defaults(this.props.query, defaultQuery);
-    const { queryText, constant } = query;
+    const { queryText, constant, frequency } = query;
 
     return (
       <div className="gf-form">
@@ -43,6 +49,13 @@ export class QueryEditor extends PureComponent<Props> {
           onChange={this.onQueryTextChange}
           label="Query Text"
           tooltip="Not used yet"
+        />
+        <FormField
+          labelWidth={4}
+          value={frequency}
+          onChange={this.onFrequencyChange}
+          label="Frequency"
+          type="number"
         />
       </div>
     );
