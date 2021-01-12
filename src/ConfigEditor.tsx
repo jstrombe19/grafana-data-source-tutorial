@@ -19,6 +19,15 @@ export class ConfigEditor extends PureComponent<Props, State> {
     onOptionsChange({ ...options, jsonData });
   };
 
+  onResolutionChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { onOptionsChange, options } = this.props;
+    const jsonData = {
+      ...options.jsonData,
+      resolution: parseFloat(event.target.value),
+    };
+    onOptionsChange({ ...options, jsonData });
+  };
+
   // Secure field (only sent to the backend)
   onAPIKeyChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { onOptionsChange, options } = this.props;
@@ -60,6 +69,16 @@ export class ConfigEditor extends PureComponent<Props, State> {
             onChange={this.onPathChange}
             value={jsonData.path || ''}
             placeholder="json field returned to frontend"
+          />
+        </div>
+        <div className="gf-form">
+          <FormField
+            label="Resolution"
+            // labelWidth={6}
+            // inputWidth={20}
+            onChange={this.onResolutionChange}
+            value={jsonData.resolution || ''}
+            placeholder="Enter a number"
           />
         </div>
 
